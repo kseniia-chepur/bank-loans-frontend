@@ -1,1 +1,14 @@
-Hello Angular
+<div class="auth-links" *ngIf="!authService.currentUserSig()">
+  <a routerLink="/login">Login</a>
+  <a routerLink="/signup">Register</a>
+</div>
+
+<div class="current-user" *ngIf="authService.currentUserSig()">
+  <h3>
+    Hello, {{ authService.currentUserSig()?.username }}
+  </h3>
+  <span (click)="logout()">Logout</span>
+</div>
+
+
+<router-outlet></router-outlet>

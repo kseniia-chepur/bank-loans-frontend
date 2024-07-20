@@ -1,0 +1,30 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+mat-hint {
+  text-align: center;
+  font-size: 0.6rem;
+  line-height: 1;
+}
+
+mat-label {
+  margin-top: 2.5rem;
+}
+
+mat-option {
+  padding-inline: 2rem;
+}
+
+button {
+  margin-top: 1rem;
+}

@@ -1,0 +1,41 @@
+<h2>Registration form</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <input
+      type="email"
+      placeholder="Email"
+      formControlName="email"
+      autocomplete="email"
+      matInput
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      type="text"
+      placeholder="Username"
+      formControlName="username"
+      autocomplete="username"
+      matInput
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      type="password"
+      placeholder="Password"
+      formControlName="password"
+      autocomplete="current-password"
+      matInput
+    />
+    <mat-hint>password must be at least 8 characters long, contain a number, an uppercase letter and special character</mat-hint>
+  </mat-form-field>
+
+  <mat-label>Select role</mat-label>
+  <mat-select formControlName="role">
+    <mat-option value="specialist">specialist</mat-option>
+    <mat-option value="admin">admin</mat-option>
+  </mat-select>
+
+  <button mat-raised-button type="submit">Register</button>
+</form>
