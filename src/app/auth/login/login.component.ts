@@ -1,6 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { IUser } from '../../interfaces/user.interface';
@@ -28,9 +33,19 @@ export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
+  username = new FormControl('', [
+    Validators.required,
+    Validators.minLength(3),
+  ]);
+
+  password = new FormControl('', [
+    Validators.required,
+    Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/),
+  ]);
+
   form = this.fb.nonNullable.group({
-    username: ['', Validators.required],
-    password: ['', Validators.required],
+    username: this.username,
+    password: this.password,
   });
 
   onSubmit(): void {

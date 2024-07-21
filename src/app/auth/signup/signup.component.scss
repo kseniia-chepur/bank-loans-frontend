@@ -18,7 +18,7 @@ mat-hint {
 }
 
 mat-label {
-  margin-top: 2.5rem;
+  margin-top: 1.7rem;
 }
 
 mat-option {
@@ -27,4 +27,12 @@ mat-option {
 
 button {
   margin-top: 1rem;
+}
+
+.error-msg {
+  font-size: 0.8rem;
+  color: #a72a2a;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
 }

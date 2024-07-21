@@ -10,6 +10,12 @@
     />
   </mat-form-field>
 
+  <div class="error-msg" [hidden]="email.valid || email.untouched">
+    <p>The following problems have been found with the email:</p>
+    <p [hidden]="!email.hasError('required')">The email is required.</p>
+    <p [hidden]="!email.hasError('email')">Please enter valid email address</p>
+  </div>
+
   <mat-form-field>
     <input
       type="text"
@@ -20,16 +26,40 @@
     />
   </mat-form-field>
 
+  <div class="error-msg" [hidden]="username.valid || username.untouched">
+    <p>The following problems have been found with the username:</p>
+    <p [hidden]="!username.hasError('minlength')">
+      Username can not be shorter than 3 characters.
+    </p>
+    <p [hidden]="!username.hasError('required')">Username is required.</p>
+  </div>
+
   <mat-form-field>
     <input
       type="password"
       placeholder="Password"
       formControlName="password"
-      autocomplete="current-password"
+      autocomplete="new-password"
+      required
       matInput
     />
-    <mat-hint>password must be at least 8 characters long, contain a number, an uppercase letter and special character</mat-hint>
+    <mat-hint *ngIf="!password.value && password.untouched"
+      >password must be at least 8 characters long, contain a digit, an
+      uppercase letter and special character</mat-hint
+    >
   </mat-form-field>
+
+  <div class="error-msg" [hidden]="password.valid || password.untouched">
+    <div>The following problems have been found with the password:</div>
+
+    <div [hidden]="!password.hasError('required')">
+      The password is required.
+    </div>
+    <div [hidden]="!password.hasError('pattern')">
+      Please match the requested format (at least 8 characters long, min 1
+      uppercase letter, 1 digit and 1 special character)
+    </div>
+  </div>
 
   <mat-label>Select role</mat-label>
   <mat-select formControlName="role">
@@ -37,5 +67,7 @@
     <mat-option value="admin">admin</mat-option>
   </mat-select>
 
-  <button mat-raised-button type="submit">Register</button>
+  <button mat-raised-button type="submit" [disabled]="!form.valid">
+    Register
+  </button>
 </form>

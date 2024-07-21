@@ -1,14 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { IUser } from '../../interfaces/user.interface';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { Roles } from '../../interfaces/enums/roles.enum';
+import { Roles } from '../../enums/roles.enum';
+import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -16,10 +22,12 @@ import { environment } from '../../../environments/environment';
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    CommonModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatError,
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
@@ -31,11 +39,25 @@ export class SignupComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
+  email = new FormControl('', [Validators.required, Validators.email]);
+
+  username = new FormControl('', [
+    Validators.required,
+    Validators.minLength(3),
+  ]);
+
+  password = new FormControl('', [
+    Validators.required,
+    Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/),
+  ]);
+
+  role = new FormControl(Roles.specialist);
+
   form = this.fb.nonNullable.group({
-    email: ['', Validators.required],
-    username: ['', Validators.required],
-    password: ['', Validators.required],
-    role: [Roles.specialist],
+    email: this.email,
+    username: this.username,
+    password: this.password,
+    role: this.role,
   });
 
   onSubmit(): void {
