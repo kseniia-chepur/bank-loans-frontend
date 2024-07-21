@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormBuilder,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
-  FormControl,
 } from '@angular/forms';
 import { IUser } from '../../interfaces/user.interface';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { MatError, MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule, FloatLabelType } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -23,11 +23,12 @@ import { environment } from '../../../environments/environment';
   imports: [
     ReactiveFormsModule,
     CommonModule,
+    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MatError,
+
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
@@ -39,25 +40,15 @@ export class SignupComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
-  email = new FormControl('', [Validators.required, Validators.email]);
-
-  username = new FormControl('', [
-    Validators.required,
-    Validators.minLength(3),
-  ]);
-
-  password = new FormControl('', [
-    Validators.required,
-    Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/),
-  ]);
-
-  role = new FormControl(Roles.specialist);
-
   form = this.fb.nonNullable.group({
-    email: this.email,
-    username: this.username,
-    password: this.password,
-    role: this.role,
+    email: this.fb.control('', { validators: [Validators.required, Validators.email]}),
+    username: this.fb.control('', { validators: [Validators.required, Validators.minLength(3)]}),
+    password: this.fb.control('', { validators: [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/),]}),
+    role: this.fb.control(Roles.specialist),
+  });
+
+    readonly options = this.fb.group({
+      floatLabelControl: this.fb.control('auto' as FloatLabelType),
   });
 
   onSubmit(): void {

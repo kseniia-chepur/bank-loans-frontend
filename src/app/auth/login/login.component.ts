@@ -33,19 +33,9 @@ export class LoginComponent {
   authService = inject(AuthService);
   router = inject(Router);
 
-  username = new FormControl('', [
-    Validators.required,
-    Validators.minLength(3),
-  ]);
-
-  password = new FormControl('', [
-    Validators.required,
-    Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/),
-  ]);
-
   form = this.fb.nonNullable.group({
-    username: this.username,
-    password: this.password,
+    username: this.fb.control('', { validators: [Validators.required, Validators.minLength(3)]}),
+    password: this.fb.control('', { validators: [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/),]}),
   });
 
   onSubmit(): void {

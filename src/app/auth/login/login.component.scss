@@ -11,11 +11,15 @@ form {
   align-items: center;
 }
 
+input::placeholder {
+  font-size: 0.8rem;
+}
+
 .error-msg {
   font-size: 0.8rem;
-  color: #a72a2a;
+  color: #ba1a1a;
   font-weight: 500;
   line-height: 1;
   text-align: center;
+  margin-bottom: 5px;
 }
-
