@@ -1,0 +1,11 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+input::placeholder {
+  font-size: 0.8rem;
+}
+

@@ -1,0 +1,34 @@
+@use "@angular/material" as mat;
+@use "./../../../../styles.scss" as styles;
+
+.error-msg {
+  color: mat.get-theme-color(styles.$theme, primary, 50);
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1.7rem;
+}
+
+table {
+  margin-block: 30px;
+}
+
+.client-link {
+  line-height: 20px;
+  font-weight: 500;
+  color: mat.get-theme-color(styles.$theme, primary, 60);
+  border-bottom: var(--mat-table-row-item-outline-color, rgba(0, 0, 0, 0.12))
+    1px solid;
+  padding: 16px;
+  display: block;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: mat.get-theme-color(styles.$theme, primary, 30);
+  }
+}
+
+.add-new {
+  padding: 20px;
+}
+
+

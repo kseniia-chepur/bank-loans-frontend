@@ -1,0 +1,86 @@
+<div *ngIf="error; else clientForm">
+  <h3 class="error-msg">{{ error }}</h3>
+</div>
+
+<ng-template #clientForm>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        type="text"
+        placeholder="Enter client's name"
+        formControlName="name"
+        matInput
+      />
+    </mat-form-field>
+    @if ( form.controls.name.invalid && form.controls.name.touched) { @if
+    (form.controls.name.errors?.['required']) {
+    <small class="error-msg">Name is required</small>
+    } @if (form.controls.name.errors?.['minlength']) {
+    <small class="error-msg">Name must be at least 3 characters long</small>
+    } }
+
+    <mat-form-field>
+    <mat-label>Ownership type</mat-label>
+    <mat-select formControlName="ownership">
+      <mat-option *ngFor="let type of ownership | keyvalue" [value]="type.value">
+        {{ type.value }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Address</mat-label>
+      <input
+        type="text"
+        placeholder="Enter client's address"
+        formControlName="address"
+        matInput
+      />
+    </mat-form-field>
+    @if ( form.controls.address.invalid && form.controls.address.touched) { @if
+    (form.controls.address.errors?.['required']) {
+    <small class="error-msg">Address is required</small>
+    } @if (form.controls.address.errors?.['minlength']) {
+    <small class="error-msg">Address must be at least 3 characters long</small>
+    } }
+
+    <mat-form-field>
+      <mat-label>Phone number</mat-label>
+      <input
+        type="text"
+        placeholder="Enter client's phone number"
+        formControlName="phone"
+        matInput
+      />
+      <mat-hint *ngIf="form.controls.phone.untouched"
+      >Phone number must be in format +380XXXXXXXXX</mat-hint
+    >
+    </mat-form-field>
+    @if ( form.controls.phone.invalid && form.controls.phone.touched) { @if
+    (form.controls.phone.errors?.['required']) {
+    <small class="error-msg">Phone number is required</small>
+    } @if (form.controls.phone.errors?.['pattern']) {
+    <small class="error-msg">Please enter valid phone number</small>
+    } }
+
+    <mat-form-field>
+      <mat-label>Contact person</mat-label>
+      <input
+        type="text"
+        placeholder="Enter contact person"
+        formControlName="contactPerson"
+        matInput
+      />
+    </mat-form-field>
+    @if ( form.controls.contactPerson.invalid && form.controls.contactPerson.touched) { @if
+    (form.controls.contactPerson.errors?.['required']) {
+    <small class="error-msg">Contact person is required</small>
+    } @if (form.controls.contactPerson.errors?.['minlength']) {
+    <small class="error-msg">Contact person must be at least 2 characters long</small>
+    } }
+
+    <button mat-raised-button [disabled]="!form.valid" type="submit">Save</button>
+  </form>
+</ng-template>
+

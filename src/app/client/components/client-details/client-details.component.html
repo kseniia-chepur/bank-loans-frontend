@@ -1,0 +1,26 @@
+<div *ngIf="error; else clientDetails">
+  <h3 class="error-msg">{{ error }}</h3>
+</div>
+
+<ng-template #clientDetails>
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-subtitle>ID:</mat-card-subtitle>
+      <mat-card-title> {{ client?._id }} </mat-card-title>
+      <mat-card-subtitle>Company name:</mat-card-subtitle>
+      <mat-card-title> {{ client?.name }} </mat-card-title>
+      <mat-card-subtitle>Ownership type:</mat-card-subtitle>
+      <mat-card-title> {{ client?.ownership }} </mat-card-title>
+      <mat-card-subtitle>Company address:</mat-card-subtitle>
+      <mat-card-title> {{ client?.address }} </mat-card-title>
+      <mat-card-subtitle>Phone number</mat-card-subtitle>
+      <mat-card-title> {{ client?.phone }} </mat-card-title>
+      <mat-card-subtitle>Contact person:</mat-card-subtitle>
+      <mat-card-title> {{ client?.contactPerson }} </mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-raised-button>Edit</button>
+      <button (click)="deleteClient()" mat-raised-button>Delete</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-template>
