@@ -1,11 +1,11 @@
-import { LoanTypes } from "../enums/loanTypes.enum";
+import { LoanTypes } from '../enums/loanTypes.enum';
 
-export interface ILoanyType {
+export interface ILoanType {
   _id: string;
-  name: LoanTypes;
-  conditions: string;
-  rate: number;
-  term: number;
+  name: LoanTypes | string | null;
+  conditions: string | null;
+  rate: number | null;
+  term: number | null;
   createdAt: Date;
   updatedAt: Date;
 }

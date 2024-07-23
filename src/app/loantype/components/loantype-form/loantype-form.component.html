@@ -1,0 +1,78 @@
+<div *ngIf="error; else loantypeForm">
+  <h3 class="error-res">{{ error }}</h3>
+</div>
+
+<ng-template #loantypeForm>
+  <h3 class="form-title">Loan type information</h3>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Please select</mat-label>
+      <mat-select formControlName="name">
+        <mat-option
+          *ngFor="let type of loantypes | keyvalue"
+          [value]="type.value"
+        >
+          {{ type.value }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    @if ( form.controls.name.invalid && form.controls.name.touched) { @if
+    (form.controls.name.errors?.['required']) {
+    <small class="error-msg">Name is required</small>
+    } }
+
+    <mat-form-field>
+      <mat-label>Conditions</mat-label>
+      <input
+        type="text"
+        placeholder="Enter conditions"
+        formControlName="conditions"
+        matInput
+      />
+    </mat-form-field>
+    @if ( form.controls.conditions.invalid && form.controls.conditions.touched)
+    { @if (form.controls.conditions.errors?.['required']) {
+    <small class="error-msg">Conditions are required</small>
+    } @if (form.controls.conditions.errors?.['minlength']) {
+    <small class="error-msg"
+      >Conditions must be at least 5 characters long</small
+    >
+    } }
+
+    <mat-form-field>
+      <mat-label>Rate</mat-label>
+      <input
+        type="number"
+        placeholder="Enter rate"
+        formControlName="rate"
+        matInput
+      />
+    </mat-form-field>
+    @if ( form.controls.rate.invalid && form.controls.rate.touched) { @if
+    (form.controls.rate.errors?.['required']) {
+    <small class="error-msg">Rate is required</small>
+    } @if (form.controls.rate.errors?.['min'] ||
+    form.controls.rate.errors?.['max']) {
+    <small class="error-msg">Rate must be between 3 and 40%</small>
+    } }
+
+    <mat-form-field>
+      <mat-label>Term</mat-label>
+      <input
+        type="number"
+        placeholder="Enter term"
+        formControlName="term"
+        matInput
+      />
+    </mat-form-field>
+    @if ( form.controls.term.invalid && form.controls.term.touched) { @if
+    (form.controls.term.errors?.['required']) {
+    <small class="error-msg">Term is required</small>
+    } @if (form.controls.term.errors?.['min'] ||
+    form.controls.term.errors?.['max']) {
+    <small class="error-msg">Term must be between 6 and 60 months</small>
+    } }
+
+    <button mat-flat-button [disabled]="!form.valid" type="submit">Save</button>
+  </form>
+</ng-template>

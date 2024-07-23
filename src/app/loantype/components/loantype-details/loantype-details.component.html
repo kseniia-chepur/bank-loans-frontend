@@ -1,0 +1,25 @@
+<div *ngIf="error; else loantypeDetails">
+  <h3 class="error-msg">{{ error }}</h3>
+</div>
+
+<ng-template #loantypeDetails>
+  <mat-card appearance="outlined">
+    <mat-card-header>
+      <mat-card-subtitle>ID:</mat-card-subtitle>
+      <mat-card-title> {{ loantype?._id }} </mat-card-title>
+      <mat-card-subtitle>Name:</mat-card-subtitle>
+      <mat-card-title> {{ loantype?.name }} </mat-card-title>
+      <mat-card-subtitle>Conditions:</mat-card-subtitle>
+      <mat-card-title> {{ loantype?.conditions }} </mat-card-title>
+      <mat-card-subtitle>Rate:</mat-card-subtitle>
+      <mat-card-title> {{ loantype?.rate }} </mat-card-title>
+      <mat-card-subtitle>Term</mat-card-subtitle>
+      <mat-card-title> {{ loantype?.term }} </mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <button (click)="editLoantype()" mat-flat-button>Edit</button>
+      <button (click)="deleteLoantype()"mat-flat-button>Delete</button>
+      <a routerLink="/loantypes" class="back-button" mat-raised-button>Back to all types</a>
+    </mat-card-actions>
+  </mat-card>
+</ng-template>
