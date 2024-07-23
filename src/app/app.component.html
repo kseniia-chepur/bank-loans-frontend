@@ -3,12 +3,21 @@
   <a routerLink="/signup">Create account</a>
 </div>
 
-<div class="current-user" *ngIf="authService.currentUserSig()">
-  <h3>
-    Hello, {{ authService.currentUserSig()?.username }}
-  </h3>
-  <span (click)="logout()">Logout</span>
-</div>
+<section class="app-content" *ngIf="authService.currentUserSig()">
+  <nav>
+    <button class="menu-button" mat-raised-button [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+      <ul class="content-links">
+        <li><a routerLink="/clients">Clients</a></li>
+        <li><a routerLink="/clients">Clients</a></li>
+      </ul>
+    </mat-menu>
+  </nav>
 
+  <div class="current-user">
+    <h3>Hello, {{ authService.currentUserSig()?.username }}</h3>
+    <span (click)="logout()">Logout</span>
+  </div>
+</section>
 
 <router-outlet></router-outlet>

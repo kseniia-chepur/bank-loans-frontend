@@ -1,7 +1,5 @@
-a {
-  text-decoration: none;
-  color: inherit;
-}
+@use "@angular/material" as mat;
+@use "./../styles.scss" as styles;
 
 .auth-links {
   display: flex;
@@ -13,7 +11,28 @@ a {
     transition: all 0.3s ease;
 
     &:hover {
-      color: #005cbb;
+      color: mat.get-theme-color(styles.$theme, primary, 40);
+    }
+  }
+}
+
+.app-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-links {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  font-size: 1rem;
+
+  & li {
+    padding: 10px 0 10px 20px;
+
+    &:hover {
+      color: mat.get-theme-color(styles.$theme, primary, 40);
     }
   }
 }
@@ -37,7 +56,7 @@ a {
     transition: all 0.3s ease;
 
     &:hover {
-      color: #005cbb;
+      color: mat.get-theme-color(styles.$theme, primary, 40);
     }
   }
 }

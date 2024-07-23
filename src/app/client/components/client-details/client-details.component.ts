@@ -3,13 +3,13 @@ import { IClient } from '../../../interfaces/client.interface';
 import { ClientService } from '../../services/client.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-client-details',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule, CommonModule],
+  imports: [MatCardModule, MatButtonModule, CommonModule, RouterLink],
   templateUrl: './client-details.component.html',
   styleUrl: './client-details.component.scss',
 })
@@ -44,6 +44,12 @@ export class ClientDetailsComponent implements OnInit {
       next: (data) => (this.client = data.client),
       error: (error) => (this.error = error.message),
     });
+  }
+
+  editClient(): void {
+    if (this.client) {
+      this.router.navigate([`/clients/edit/${this.client._id}`]);
+    }
   }
 
   deleteClient(): void {

@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -28,14 +27,21 @@ import { environment } from '../../../environments/environment';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
-  fb = inject(FormBuilder);
-  http = inject(HttpClient);
-  authService = inject(AuthService);
-  router = inject(Router);
+  private fb = inject(FormBuilder);
+  private http = inject(HttpClient);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   form = this.fb.nonNullable.group({
-    username: this.fb.control('', { validators: [Validators.required, Validators.minLength(3)]}),
-    password: this.fb.control('', { validators: [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/),]}),
+    username: this.fb.control('', {
+      validators: [Validators.required, Validators.minLength(3)],
+    }),
+    password: this.fb.control('', {
+      validators: [
+        Validators.required,
+        Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/),
+      ],
+    }),
   });
 
   onSubmit(): void {

@@ -7,6 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { IUser } from './interfaces/user.interface';
 import { CommonModule } from '@angular/common';
 import { environment } from '../environments/environment';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +19,8 @@ import { environment } from '../environments/environment';
     RouterLink,
     SignupComponent,
     LoginComponent,
+    MatMenuModule,
+    MatButtonModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -31,14 +35,8 @@ export class AppComponent implements OnInit {
         `${environment.BASE_API_URL}/auth/cabinet`
       )
       .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.authService.currentUserSig.set(res.user);
-        },
-        error: (error) => {
-          console.log(error);
-          this.authService.currentUserSig.set(null);
-        },
+        next: (res) => this.authService.currentUserSig.set(res.user),
+        error: () => this.authService.currentUserSig.set(null),
       });
   }
 

@@ -1,3 +1,6 @@
+@use "@angular/material" as mat;
+@use "./../../../../styles.scss" as styles;
+
 form {
   display: flex;
   flex-direction: column;
@@ -9,3 +12,28 @@ input::placeholder {
   font-size: 0.8rem;
 }
 
+mat-hint {
+  text-align: center;
+  font-size: 0.6rem;
+  line-height: 1;
+}
+
+button {
+  margin-top: 20px;
+}
+
+.error-res {
+  color: mat.get-theme-color(styles.$theme, primary, 50);
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1.7rem;
+}
+
+.error-msg {
+  font-size: 0.8rem;
+  color: red;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  margin-bottom: 5px;
+}
