@@ -1,0 +1,68 @@
+<div *ngIf="error; else loanList">
+  <h3 class="error-msg">{{ error }}</h3>
+</div>
+
+<ng-template #loanList>
+  <table mat-table [dataSource]="loans" class="mat-elevation-z8">
+    <ng-container matColumnDef="_id">
+      <th mat-header-cell *matHeaderCellDef>id</th>
+      <td mat-cell *matCellDef="let loan">{{ loan._id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="loanType">
+      <th mat-header-cell *matHeaderCellDef>Type of loan</th>
+      <td mat-cell *matCellDef="let loan">{{ loan.loanType.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="client">
+      <th mat-header-cell *matHeaderCellDef>Client</th>
+      <td mat-cell *matCellDef="let loan">{{ loan.client.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef>Amount</th>
+      <td mat-cell *matCellDef="let loan">{{ loan.amount }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="parts">
+      <th mat-header-cell *matHeaderCellDef>Loan parts</th>
+      <td mat-cell *matCellDef="let loan">{{ loan.parts }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateIssued">
+      <th mat-header-cell *matHeaderCellDef>Loan issue date</th>
+      <td mat-cell *matCellDef="let loan">{{ loan.dateIssued }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dueDate">
+      <th mat-header-cell *matHeaderCellDef>Loan due date</th>
+      <td mat-cell *matCellDef="let loan">{{ loan.dueDate }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateRepaid">
+      <th mat-header-cell *matHeaderCellDef>Actual repayment date</th>
+      <td mat-cell *matCellDef="let loan">{{ loan.dateRepaid }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="fineAmount">
+      <th mat-header-cell *matHeaderCellDef>Fine</th>
+      <td mat-cell *matCellDef="let loan">{{ loan.fineAmount }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="details">
+      <th mat-header-cell *matHeaderCellDef>Details</th>
+      <a
+        class="details-link"
+        mat-cell
+        *matCellDef="let loan"
+        [routerLink]="[loan._id]"
+        >View & edit</a
+      >
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</ng-template>
+
+<button routerLink="add" class="add-new" mat-flat-button>Add new loan</button>

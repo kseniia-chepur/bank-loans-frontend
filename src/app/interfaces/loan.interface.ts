@@ -8,7 +8,7 @@ export interface ILoan {
   amount: number;
   dateIssued: Date;
   dueDate: Date;
-  dateRepaid?: Date;
+  dateRepaid?: string;
   parts: number;
   fineAmount: number;
   createdAt: Date;

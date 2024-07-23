@@ -7,6 +7,9 @@ import { ClientFormComponent } from './client/components/client-form/client-form
 import { LoantypeListComponent } from './loantype/components/loantype-list/loantype-list.component';
 import { LoantypeFormComponent } from './loantype/components/loantype-form/loantype-form-component';
 import { LoantypeDetailsComponent } from './loantype/components/loantype-details/loantype-details.component';
+import { LoanListComponent } from './loan/components/loan-list/loan-list.component';
+import { LoanFormComponent } from './loan/components/loan-form/loan-form-component';
+import { LoanDetailsComponent } from './loan/components/loan-details/loan-details.component';
 
 export const routes: Routes = [
   {
@@ -32,6 +35,22 @@ export const routes: Routes = [
   {
     path: 'clients/edit/:id',
     component: ClientFormComponent,
+  },
+  {
+    path: 'loans',
+    component: LoanListComponent,
+  },
+  {
+    path: 'loans/add',
+    component: LoanFormComponent,
+  },
+  {
+    path: 'loans/:id',
+    component: LoanDetailsComponent,
+  },
+  {
+    path: 'loans/edit/:id',
+    component: LoanFormComponent,
   },
   {
     path: 'loantypes',

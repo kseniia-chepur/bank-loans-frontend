@@ -6,4 +6,5 @@ export enum ErrorMsg {
   FAILED_TO_DELETE_BY_ID = 'Failed to delete entity with id',
   DELETE_CLIENT_INFO = ' Please make sure that you have administrative rights and client has no existing loans',
   DELETE_LOANTYPE_INFO = 'Please make sure that you have administrative rights and there are no existing loans referencing to the selected type',
+  DELETE_LOAN_INFO = 'Please make sure that selected loan has no debt obligations',
 }

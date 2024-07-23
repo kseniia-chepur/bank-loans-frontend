@@ -1,0 +1,30 @@
+@use "@angular/material" as mat;
+@use "./../../../../styles.scss" as styles;
+
+.error-msg {
+  color: mat.get-theme-color(styles.$theme, primary, 50);
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1.7rem;
+}
+
+mat-card {
+  margin-top: 20px;
+}
+
+mat-card-title {
+  margin-bottom: 10px;
+}
+
+mat-card-subtitle {
+  font-weight: 400;
+}
+
+mat-card-actions {
+  display: flex;
+  gap: 30px;
+}
+
+.back-button {
+  padding-inline: 10px;
+}

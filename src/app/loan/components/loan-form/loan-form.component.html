@@ -1,0 +1,77 @@
+<div *ngIf="error; else loanForm">
+  <h3 class="error-res">{{ error }}</h3>
+</div>
+
+<ng-template #loanForm>
+  <h3 class="form-title">Loan information</h3>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Please select type of loan</mat-label>
+      <mat-select formControlName="loanType">
+        <mat-option
+          *ngFor="let type of loantypes"
+          [value]="type._id"
+        >
+          {{ type.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    @if ( form.controls.loanType.invalid && form.controls.loanType.touched) { @if
+    (form.controls.loanType.errors?.['required']) {
+    <small class="error-msg">Loan type is required</small>
+    } }
+
+    <mat-form-field>
+      <mat-label>Please select client</mat-label>
+      <mat-select formControlName="client">
+        <mat-option
+          *ngFor="let client of clients"
+          [value]="client._id"
+        >
+          {{ client.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    @if ( form.controls.client.invalid && form.controls.client.touched) { @if
+    (form.controls.client.errors?.['required']) {
+    <small class="error-msg">Client is required</small>
+    } }
+
+    <mat-form-field>
+      <mat-label>Amount</mat-label>
+      <input
+        type="number"
+        placeholder="Enter amount"
+        formControlName="amount"
+        matInput
+      />
+    </mat-form-field>
+    @if ( form.controls.amount.invalid && form.controls.amount.touched)
+    { @if (form.controls.amount.errors?.['required']) {
+    <small class="error-msg">Conditions are required</small>
+    } @if (form.controls.amount.errors?.['min'] || form.controls.amount.errors?.['max']) {
+    <small class="error-msg"
+      >Amount must be between 100000 and 10000000</small
+    >
+    } }
+
+    <mat-form-field>
+      <mat-label>Parts</mat-label>
+      <input
+        type="number"
+        placeholder="Enter number of loan parts"
+        formControlName="parts"
+        matInput
+      />
+    </mat-form-field>
+    @if ( form.controls.parts.invalid && form.controls.parts.touched) { @if
+    (form.controls.parts.errors?.['required']) {
+    <small class="error-msg">Rate is required</small>
+    } @if (form.controls.parts.errors?.['min'] ||
+    form.controls.parts.errors?.['max']) {
+    <small class="error-msg">Parts must be between 1 and 20</small>
+    } }
+
+    <button mat-flat-button [disabled]="!form.valid" type="submit">Save</button>
+  </form>
+</ng-template>
