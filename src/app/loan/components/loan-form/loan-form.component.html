@@ -9,7 +9,7 @@
       <mat-label>Please select type of loan</mat-label>
       <mat-select formControlName="loanType">
         <mat-option *ngFor="let type of loantypes" [value]="type._id">
-          {{ type.name }}
+          {{ type.name }}, {{ type._id }}
         </mat-option>
       </mat-select>
     </mat-form-field>

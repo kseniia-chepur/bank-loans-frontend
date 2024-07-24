@@ -1,17 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { IUser } from '../../interfaces/user.interface';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { environment } from '../../../environments/environment';
+import { Regex } from '../../enums/regex.enum';
 
 @Component({
   selector: 'app-login',
@@ -24,36 +19,34 @@ import { environment } from '../../../environments/environment';
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
   private fb = inject(FormBuilder);
-  private http = inject(HttpClient);
   private authService = inject(AuthService);
   private router = inject(Router);
+
+  error: string | null = null;
 
   form = this.fb.nonNullable.group({
     username: this.fb.control('', {
       validators: [Validators.required, Validators.minLength(3)],
     }),
     password: this.fb.control('', {
-      validators: [
-        Validators.required,
-        Validators.pattern(/^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,}$/),
-      ],
+      validators: [Validators.required, Validators.pattern(Regex.PASSWORD)],
     }),
   });
 
   onSubmit(): void {
-    this.http
-      .post<{ status: string; user: IUser; token: string }>(
-        `${environment.BASE_API_URL}/auth/login`,
-        this.form.getRawValue()
-      )
-      .subscribe((res) => {
-        localStorage.setItem('token', res.token);
-        this.authService.currentUserSig.set(res.user);
+    const userData: Partial<IUser> = this.form.getRawValue();
+    this.authService.loginUser(userData).subscribe({
+      next: (response) => {
+        localStorage.setItem('token', response.token);
+        this.authService.currentUserSig.set(response.user);
         this.router.navigateByUrl('/');
-      });
+      },
+      error: (error) => {
+        this.error = error.message;
+      },
+    });
   }
 }

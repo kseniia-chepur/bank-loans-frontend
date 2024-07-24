@@ -29,6 +29,10 @@ button {
   margin-top: 20px;
 }
 
+mat-option {
+  font-size: 0.9rem;
+}
+
 .error-res {
   color: mat.get-theme-color(styles.$theme, primary, 50);
   text-align: center;

@@ -73,7 +73,7 @@ export class ClientFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    let clientData: Partial<IClient> = this.form.getRawValue();
+    const clientData: Partial<IClient> = this.form.getRawValue();
     if (this.clientId) {
       delete clientData.name;
       delete clientData.ownership;

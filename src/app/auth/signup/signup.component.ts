@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormsModule,
@@ -15,7 +14,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { Roles } from '../../enums/roles.enum';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../../environments/environment';
 import { Regex } from '../../enums/regex.enum';
 
 @Component({
@@ -32,13 +30,13 @@ import { Regex } from '../../enums/regex.enum';
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent {
   private fb = inject(FormBuilder);
-  private http = inject(HttpClient);
   private authService = inject(AuthService);
   private router = inject(Router);
+
+  error: string | null = null;
 
   form = this.fb.nonNullable.group({
     email: this.fb.control('', {
@@ -54,15 +52,16 @@ export class SignupComponent {
   });
 
   onSubmit(): void {
-    this.http
-      .post<{ status: string; user: IUser; token: string }>(
-        `${environment.BASE_API_URL}/auth/signup`,
-        this.form.getRawValue()
-      )
-      .subscribe((res) => {
-        localStorage.setItem('token', res.token);
-        this.authService.currentUserSig.set(res.user);
+    const newUserData: Partial<IUser> = this.form.getRawValue();
+    this.authService.createUser(newUserData).subscribe({
+      next: (response) => {
+        localStorage.setItem('token', response.token);
+        this.authService.currentUserSig.set(response.user);
         this.router.navigateByUrl('/');
-      });
+      },
+      error: (error) => {
+        this.error = error.message;
+      },
+    });
   }
 }

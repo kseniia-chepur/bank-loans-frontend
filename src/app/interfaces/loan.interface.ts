@@ -3,8 +3,8 @@ import { ILoanType } from './loantype.interface';
 
 export interface ILoan {
   _id: string;
-  loanType: ILoanType | null;
-  client: IClient | null;
+  loanType: ILoanType;
+  client: IClient;
   amount: number;
   dateIssued: Date;
   dueDate: Date;

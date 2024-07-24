@@ -41,10 +41,10 @@ export class LoanFormComponent implements OnInit {
   private fb = inject(FormBuilder);
 
   form = this.fb.nonNullable.group({
-    loanType: this.fb.control('', {
+    loanType: this.fb.control<string | null | ILoanType>(null, {
       validators: [Validators.required],
     }),
-    client: this.fb.control('', {
+    client: this.fb.control<string | null | IClient>(null, {
       validators: [Validators.required],
     }),
     amount: this.fb.control(0, {
@@ -66,6 +66,9 @@ export class LoanFormComponent implements OnInit {
   error: string | null = null;
 
   ngOnInit(): void {
+    this.fetchClients();
+    this.fetchLoanTypes();
+
     this.route.paramMap.subscribe((params) => {
       this.loanId = params.get('id');
       if (this.loanId) {
@@ -94,7 +97,29 @@ export class LoanFormComponent implements OnInit {
     });
   }
 
-   onSubmit(): void {
+  fetchClients(): void {
+    this.clientService.getClients().subscribe({
+      next: (response) => {
+        this.clients = response.clients;
+      },
+      error: (error) => {
+        console.error('Error fetching clients', error);
+      },
+    });
+  }
+
+  fetchLoanTypes(): void {
+    this.loanTypeService.getLoantypes().subscribe({
+      next: (response) => {
+        this.loantypes = response['loan types'];
+      },
+      error: (error) => {
+        console.error('Error fetching loan types', error);
+      },
+    });
+  }
+
+  onSubmit(): void {
     if (this.form.valid) {
       if (this.loanId) {
         const loanData: Date = this.form.value.dateRepaid!;
@@ -109,12 +134,8 @@ export class LoanFormComponent implements OnInit {
       } else {
         const formValue = this.form.value;
         const loanData: Partial<ILoan> = {
-          loanType: formValue.loanType
-            ? ({ _id: formValue.loanType } as ILoanType)
-            : null,
-          client: formValue.client
-            ? ({ _id: formValue.client } as IClient)
-            : null,
+          loanType: formValue.loanType! as ILoanType,
+          client: formValue.client! as IClient,
           amount: formValue.amount!,
           parts: formValue.parts!,
           dateRepaid: formValue.dateRepaid || undefined,
