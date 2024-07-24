@@ -8,26 +8,20 @@
     <mat-form-field>
       <mat-label>Please select type of loan</mat-label>
       <mat-select formControlName="loanType">
-        <mat-option
-          *ngFor="let type of loantypes"
-          [value]="type._id"
-        >
+        <mat-option *ngFor="let type of loantypes" [value]="type._id">
           {{ type.name }}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    @if ( form.controls.loanType.invalid && form.controls.loanType.touched) { @if
-    (form.controls.loanType.errors?.['required']) {
+    @if ( form.controls.loanType.invalid && form.controls.loanType.touched) {
+    @if (form.controls.loanType.errors?.['required']) {
     <small class="error-msg">Loan type is required</small>
     } }
 
     <mat-form-field>
       <mat-label>Please select client</mat-label>
       <mat-select formControlName="client">
-        <mat-option
-          *ngFor="let client of clients"
-          [value]="client._id"
-        >
+        <mat-option *ngFor="let client of clients" [value]="client._id">
           {{ client.name }}
         </mat-option>
       </mat-select>
@@ -46,13 +40,12 @@
         matInput
       />
     </mat-form-field>
-    @if ( form.controls.amount.invalid && form.controls.amount.touched)
-    { @if (form.controls.amount.errors?.['required']) {
+    @if ( form.controls.amount.invalid && form.controls.amount.touched) { @if
+    (form.controls.amount.errors?.['required']) {
     <small class="error-msg">Conditions are required</small>
-    } @if (form.controls.amount.errors?.['min'] || form.controls.amount.errors?.['max']) {
-    <small class="error-msg"
-      >Amount must be between 100000 and 10000000</small
-    >
+    } @if (form.controls.amount.errors?.['min'] ||
+    form.controls.amount.errors?.['max']) {
+    <small class="error-msg">Amount must be between 100000 and 10000000</small>
     } }
 
     <mat-form-field>
@@ -71,6 +64,17 @@
     form.controls.parts.errors?.['max']) {
     <small class="error-msg">Parts must be between 1 and 20</small>
     } }
+
+    <mat-form-field>
+      <mat-label>Choose a date of loan repayment</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateRepaid" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
     <button mat-flat-button [disabled]="!form.valid" type="submit">Save</button>
   </form>

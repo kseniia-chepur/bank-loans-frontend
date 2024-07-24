@@ -1,31 +1,52 @@
 <div *ngIf="error; else loanDetails">
   <h3 class="error-msg">{{ error }}</h3>
+  <a routerLink="/loans" class="back-button" mat-raised-button
+    >Back to all loans</a
+  >
 </div>
 
 <ng-template #loanDetails>
   <mat-card appearance="outlined">
     <mat-card-header>
-      <mat-card-subtitle>ID:</mat-card-subtitle>
-      <mat-card-title> {{ loan?._id }} </mat-card-title>
-      <mat-card-subtitle>Type of loan:</mat-card-subtitle>
-      <mat-card-title> {{ loan?.loanType }} </mat-card-title>
-      <mat-card-subtitle>Amount:</mat-card-subtitle>
-      <mat-card-title> {{ loan?.amount }} </mat-card-title>
-      <mat-card-subtitle>Parts:</mat-card-subtitle>
-      <mat-card-title> {{ loan?.parts }} </mat-card-title>
-      <mat-card-subtitle>Loan issue date</mat-card-subtitle>
-      <mat-card-title> {{ loan?.dateIssued }} </mat-card-title>
-      <mat-card-subtitle>Due date</mat-card-subtitle>
-      <mat-card-title> {{ loan?.dueDate }} </mat-card-title>
-      <mat-card-subtitle>Actual repayment date</mat-card-subtitle>
-      <mat-card-title> {{ loan?.dateRepaid }} </mat-card-title>
-      <mat-card-subtitle>Fine</mat-card-subtitle>
-      <mat-card-title> {{ loan?.fineAmount }} </mat-card-title>
+      <div>
+        <mat-card-subtitle>ID:</mat-card-subtitle>
+        <mat-card-title> {{ loan?._id }} </mat-card-title>
+        <mat-card-subtitle>Type of loan:</mat-card-subtitle>
+        <mat-card-title> {{ loan?.loanType?.name }} </mat-card-title>
+        <mat-card-subtitle>Client:</mat-card-subtitle>
+        <mat-card-title> {{ loan?.client?.name }} </mat-card-title>
+        <mat-card-subtitle>Amount:</mat-card-subtitle>
+        <mat-card-title>
+          {{ loan?.amount | currency : "UAH" : "symbol-narrow" }}
+        </mat-card-title>
+        <mat-card-subtitle>Parts:</mat-card-subtitle>
+        <mat-card-title> {{ loan?.parts }} </mat-card-title>
+      </div>
+      <div>
+        <mat-card-subtitle>Loan issue date</mat-card-subtitle>
+        <mat-card-title>
+          {{ loan?.dateIssued | date : "dd.MM.yyyy" }}
+        </mat-card-title>
+        <mat-card-subtitle>Due date</mat-card-subtitle>
+        <mat-card-title>
+          {{ loan?.dueDate | date : "dd.MM.yyyy" }}
+        </mat-card-title>
+        <mat-card-subtitle>Actual repayment date</mat-card-subtitle>
+        <mat-card-title>
+          {{ loan?.dateRepaid | date : "dd.MM.yyyy" }}
+        </mat-card-title>
+        <mat-card-subtitle>Fine</mat-card-subtitle>
+        <mat-card-title>
+          {{ loan?.fineAmount | currency : "UAH" : "symbol-narrow" }}
+        </mat-card-title>
+      </div>
     </mat-card-header>
     <mat-card-actions>
       <button (click)="editLoan()" mat-flat-button>Edit</button>
-      <button (click)="deleteLoan()"mat-flat-button>Delete</button>
-      <a routerLink="/loans" class="back-button" mat-raised-button>Back to all loans</a>
+      <button (click)="deleteLoan()" mat-flat-button>Delete</button>
+      <a routerLink="/loans" class="back-button" mat-raised-button
+        >Back to all loans</a
+      >
     </mat-card-actions>
   </mat-card>
 </ng-template>

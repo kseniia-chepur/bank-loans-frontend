@@ -12,12 +12,19 @@ mat-card {
   margin-top: 20px;
 }
 
+mat-card-header {
+  display: flex;
+  gap: 10px;
+}
+
 mat-card-title {
+  font-size: 1.3rem;
   margin-bottom: 10px;
 }
 
 mat-card-subtitle {
   font-weight: 400;
+  color: mat.get-theme-color(styles.$theme, primary, 30);
 }
 
 mat-card-actions {

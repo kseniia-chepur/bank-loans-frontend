@@ -43,11 +43,11 @@ export class LoanService {
 
   updateLoan(
     id: string,
-    loan: Partial<ILoan>
+    dateRepaid: Date
   ): Observable<{ status: string; loan: ILoan }> {
     const url = `${this.apiUrl}/${id}`;
     return this.http
-      .patch<{ status: string; loan: ILoan }>(url, loan)
+      .patch<{ status: string; loan: ILoan }>(url, { dateRepaid })
       .pipe(
         catchError(() =>
           throwError(

@@ -5,6 +5,8 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoanService } from '../../services/loan.service';
 import { ILoan } from '../../../interfaces/loan.interface';
+import { IClient } from '../../../interfaces/client.interface';
+import { ClientService } from '../../../client/services/client.service';
 
 @Component({
   selector: 'app-loan-details',
@@ -39,7 +41,7 @@ export class LoanDetailsComponent implements OnInit {
     });
   }
 
-  updateLoan(loanData: Partial<ILoan>): void {
+  updateLoan(loanData: Date): void {
     this.loanService.updateLoan(this.id, loanData).subscribe({
       next: (data) => (this.loan = data.loan),
       error: (error) => (this.error = error.message),
@@ -48,7 +50,7 @@ export class LoanDetailsComponent implements OnInit {
 
   editLoan(): void {
     if (this.loan) {
-      this.router.navigate([`/loantypes/edit/${this.loan._id}`]);
+      this.router.navigate([`/loans/edit/${this.loan._id}`]);
     }
   }
 
@@ -63,4 +65,5 @@ export class LoanDetailsComponent implements OnInit {
       },
     });
   }
+
 }

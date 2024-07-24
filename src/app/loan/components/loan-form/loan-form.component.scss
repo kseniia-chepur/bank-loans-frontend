@@ -14,8 +14,9 @@ form {
   justify-content: center;
 }
 
-input::placeholder {
+input::placeholder, mat-label {
   font-size: 0.8rem;
+  letter-spacing: -0.3px;
 }
 
 mat-hint {
@@ -37,7 +38,7 @@ button {
 
 .error-msg {
   font-size: 0.8rem;
-  color: red;
+  color: var(--mdc-filled-text-field-error-label-text-color);
   font-weight: 500;
   line-height: 1;
   text-align: center;

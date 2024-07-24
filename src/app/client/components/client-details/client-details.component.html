@@ -1,5 +1,6 @@
 <div *ngIf="error; else clientDetails">
   <h3 class="error-msg">{{ error }}</h3>
+  <a routerLink="/clients" class="back-button" mat-raised-button>Back to all clients</a>
 </div>
 
 <ng-template #clientDetails>

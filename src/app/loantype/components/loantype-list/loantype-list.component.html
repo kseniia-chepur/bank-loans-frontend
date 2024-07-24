@@ -20,13 +20,13 @@
     </ng-container>
 
     <ng-container matColumnDef="rate">
-      <th mat-header-cell *matHeaderCellDef>Rate</th>
+      <th mat-header-cell *matHeaderCellDef>Rate, %</th>
       <td mat-cell *matCellDef="let type">{{ type.rate }}</td>
     </ng-container>
 
     <ng-container matColumnDef="term">
-      <th mat-header-cell *matHeaderCellDef>Term</th>
-      <td mat-cell *matCellDef="let type">{{ type.term }}</td>
+      <th mat-header-cell *matHeaderCellDef>Term, months</th>
+      <td mat-cell *matCellDef="let type">{{ type.term }} </td>
     </ng-container>
 
         <ng-container matColumnDef="details">

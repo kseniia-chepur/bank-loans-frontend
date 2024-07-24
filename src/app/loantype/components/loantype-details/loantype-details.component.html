@@ -1,5 +1,6 @@
 <div *ngIf="error; else loantypeDetails">
   <h3 class="error-msg">{{ error }}</h3>
+  <a routerLink="/loantypes" class="back-button" mat-raised-button>Back to all types</a>
 </div>
 
 <ng-template #loantypeDetails>
@@ -12,9 +13,9 @@
       <mat-card-subtitle>Conditions:</mat-card-subtitle>
       <mat-card-title> {{ loantype?.conditions }} </mat-card-title>
       <mat-card-subtitle>Rate:</mat-card-subtitle>
-      <mat-card-title> {{ loantype?.rate }} </mat-card-title>
+      <mat-card-title> {{ loantype?.rate }}% </mat-card-title>
       <mat-card-subtitle>Term</mat-card-subtitle>
-      <mat-card-title> {{ loantype?.term }} </mat-card-title>
+      <mat-card-title> {{ loantype?.term }} months </mat-card-title>
     </mat-card-header>
     <mat-card-actions>
       <button (click)="editLoantype()" mat-flat-button>Edit</button>

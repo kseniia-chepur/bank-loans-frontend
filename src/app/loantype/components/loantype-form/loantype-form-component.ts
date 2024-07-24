@@ -94,28 +94,3 @@ export class LoantypeFormComponent implements OnInit {
     }
   }
 }
-
-//   onSubmit(): void {
-//     let loantypeData: Partial<ILoanyType> = this.form.getRawValue();
-//     if (this.loantypeId) {
-//       delete loantypeData.name;
-//         this.loantypeService.updateLoantype(this.loantypeId, loantypeData).subscribe({
-//         next: () => {
-//           this.router.navigate(['/loantypes', this.loantypeId]);
-//         },
-//         error: (error) => {
-//           this.error = error.message;
-//         },
-//       });
-//     } else {
-//       this.loantypeService.createLoantype(loantypeData).subscribe({
-//         next: (data) => {
-//           this.router.navigate(['/loantyes', this.loantypeId]);
-//         },
-//         error: (error) => {
-//           this.error = error.message;
-//         },
-//       });
-//     }
-//   }
-// }

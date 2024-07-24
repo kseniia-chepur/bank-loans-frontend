@@ -5,8 +5,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
-import { ErrorMsg } from '../../../enums/errorMsg.enum';
 import { LoanService } from '../../services/loan.service';
 import { ILoan } from '../../../interfaces/loan.interface';
 import { ILoanType } from '../../../interfaces/loantype.interface';
@@ -17,12 +18,14 @@ import { LoantypeService } from '../../../loantype/services/loantype.service';
 @Component({
   selector: 'app-loan-form',
   standalone: true,
+  providers: [provideNativeDateAdapter()],
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatDatepickerModule,
     CommonModule,
     RouterLink,
   ],
@@ -54,7 +57,7 @@ export class LoanFormComponent implements OnInit {
     parts: this.fb.control(1, {
       validators: [Validators.min(1), Validators.max(20)],
     }),
-    dateRepaid: this.fb.control(''),
+    dateRepaid: this.fb.control(new Date()),
   });
 
   clients: IClient[] = [];
@@ -63,62 +66,60 @@ export class LoanFormComponent implements OnInit {
   error: string | null = null;
 
   ngOnInit(): void {
-    this.fetchClients();
-    this.fetchLoanTypes();
-
     this.route.paramMap.subscribe((params) => {
       this.loanId = params.get('id');
       if (this.loanId) {
         this.loanService.getLoanById(this.loanId).subscribe({
           next: (response) => {
-            this.form.patchValue(response.loan);
-            // this.form.get('name')?.disable();
+            const loan = response.loan;
+            this.form.patchValue({
+              loanType: loan.loanType?._id,
+              client: loan.client?._id,
+              amount: loan.amount,
+              parts: loan.parts,
+              dateRepaid: loan.dateRepaid || null,
+            });
+            this.form.get('loanType')?.disable();
+            this.form.get('client')?.disable();
+            this.form.get('amount')?.disable();
+            this.form.get('parts')?.disable();
           },
           error: (error) => {
-            console.error(ErrorMsg.FAILED_TO_FETCH, error);
+            this.error = error.message;
           },
         });
+      } else {
+        this.form.get('dateRepaid')?.disable();
       }
     });
   }
 
-  fetchClients(): void {
-    this.clientService.getClients().subscribe({
-      next: (response) => {
-        this.clients = response.clients;
-      },
-      error: (error) => {
-        console.error('Error fetching clients', error);
-      },
-    });
-  }
-
-  fetchLoanTypes(): void {
-    this.loanTypeService.getLoantypes().subscribe({
-      next: (response) => {
-        this.loantypes = response['loan types'];
-      },
-      error: (error) => {
-        console.error('Error fetching loan types', error);
-      },
-    });
-  }
-
-  onSubmit(): void {
+   onSubmit(): void {
     if (this.form.valid) {
-      const loanData: Partial<ILoan> = this.cleanFormData(this.form.value);
-
       if (this.loanId) {
+        const loanData: Date = this.form.value.dateRepaid!;
         this.loanService.updateLoan(this.loanId, loanData).subscribe({
           next: () => {
             this.router.navigate(['/loans', this.loanId]);
           },
           error: (error) => {
             this.error = error.message;
-            console.error('Error updating loan', error);
           },
         });
       } else {
+        const formValue = this.form.value;
+        const loanData: Partial<ILoan> = {
+          loanType: formValue.loanType
+            ? ({ _id: formValue.loanType } as ILoanType)
+            : null,
+          client: formValue.client
+            ? ({ _id: formValue.client } as IClient)
+            : null,
+          amount: formValue.amount!,
+          parts: formValue.parts!,
+          dateRepaid: formValue.dateRepaid || undefined,
+        };
+        delete loanData.dateRepaid;
         this.loanService.createLoan(loanData).subscribe({
           next: (data) => {
             this.router.navigate(['/loans', data.loan._id]);
@@ -130,78 +131,4 @@ export class LoanFormComponent implements OnInit {
       }
     }
   }
-
-  private cleanFormData(formData: any): Partial<ILoan> {
-    const cleanedData: Partial<ILoan> = { ...formData };
-    if (cleanedData.dateRepaid === '') {
-      delete cleanedData.dateRepaid;
-    }
-    return cleanedData;
-  }
 }
-
-// ngOnInit(): void {
-//   this.route.paramMap.subscribe((params) => {
-//     this.loanId = params.get('id');
-//     if (this.loanId) {
-//       this.loanService.getLoanById(this.loanId).subscribe({
-//         next: (response) => {
-//           this.form.patchValue(response.loan);
-//           // this.form.get('name')?.disable();
-//         },
-//         error: (error) => {
-//           console.error(ErrorMsg.FAILED_TO_FETCH, error);
-//         },
-//       });
-//     }
-//   });
-// }
-
-// onSubmit(): void {
-//   const loanData: Partial<ILoan> = this.form.getRawValue();
-//   if (this.loanId) {
-//     // delete loantypeData.name;
-//     this.loanService.updateLoan(this.loanId, loanData).subscribe({
-//       next: () => {
-//         this.router.navigate(['/loans', this.loanId]);
-//       },
-//       error: (error) => {
-//         this.error = error.message;
-//       },
-//     });
-//   } else {
-//     this.loanService.createLoan(loanData).subscribe({
-//       next: (data) => {
-//         this.router.navigate(['/loans', data.loan._id]);
-//       },
-//       error: (error) => {
-//         this.error = error.message;
-//       },
-//     });
-//   }
-// }
-
-//   onSubmit(): void {
-//     let loantypeData: Partial<ILoanyType> = this.form.getRawValue();
-//     if (this.loantypeId) {
-//       delete loantypeData.name;
-//         this.loantypeService.updateLoantype(this.loantypeId, loantypeData).subscribe({
-//         next: () => {
-//           this.router.navigate(['/loantypes', this.loantypeId]);
-//         },
-//         error: (error) => {
-//           this.error = error.message;
-//         },
-//       });
-//     } else {
-//       this.loantypeService.createLoantype(loantypeData).subscribe({
-//         next: (data) => {
-//           this.router.navigate(['/loantyes', this.loantypeId]);
-//         },
-//         error: (error) => {
-//           this.error = error.message;
-//         },
-//       });
-//     }
-//   }
-// }

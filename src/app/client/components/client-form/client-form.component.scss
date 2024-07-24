@@ -37,7 +37,7 @@ button {
 
 .error-msg {
   font-size: 0.8rem;
-  color: red;
+  color: var(--mdc-filled-text-field-error-label-text-color);
   font-weight: 500;
   line-height: 1;
   text-align: center;

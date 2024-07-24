@@ -18,6 +18,7 @@ mat-card-title {
 
 mat-card-subtitle {
   font-weight: 400;
+  color: mat.get-theme-color(styles.$theme, primary, 30);
 }
 
 mat-card-actions {

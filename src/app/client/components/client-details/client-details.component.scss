@@ -18,6 +18,7 @@ mat-card-title {
 
 mat-card-subtitle {
   font-weight: 400;
+  color: mat.get-theme-color(styles.$theme, primary, 30);
 }
 
 mat-card-actions {
@@ -25,8 +26,6 @@ mat-card-actions {
   gap: 30px;
 }
 
-
 .back-button {
   padding-inline: 10px;
 }
-

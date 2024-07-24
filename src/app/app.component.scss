@@ -25,11 +25,13 @@
 .content-links {
   display: flex;
   flex-direction: column;
+  gap: 10px;
+  padding: 10px;
   list-style: none;
   font-size: 1rem;
 
-  & li {
-    padding: 10px 20px;
+  & li a{
+    padding: 10px;
 
     &:hover {
       color: mat.get-theme-color(styles.$theme, primary, 40);

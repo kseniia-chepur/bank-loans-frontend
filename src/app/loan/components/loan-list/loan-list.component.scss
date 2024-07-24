@@ -13,14 +13,20 @@ table {
   padding-inline: 10px;
 }
 
+td {
+  font-size: 0.8rem;
+}
+
 .details-link {
   line-height: 20px;
+  font-size: 0.8rem;
   font-weight: 500;
   color: mat.get-theme-color(styles.$theme, primary, 60);
   border-bottom: var(--mat-table-row-item-outline-color, rgba(0, 0, 0, 0.12))
     1px solid;
   padding: 16px;
   display: block;
+  text-align: center;
   transition: all 0.3s ease;
 
   &:hover {
