@@ -3,6 +3,9 @@
 ### Description of the project
 This project is a part of the TechMagic Academy_JS course#15. It provides frontend part for the loan management system at commercial bank.
 
+The app allows users to register/login into system, registered users can manage clients, types of loans and client's loans. Requests to delete endpoints can be sent by users with administrative rights only.
+ 
+
 ## [Link to DEMO](https://bank-loans-app.netlify.app/)
 
 
