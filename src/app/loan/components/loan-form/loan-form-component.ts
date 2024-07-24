@@ -103,7 +103,7 @@ export class LoanFormComponent implements OnInit {
         this.clients = response.clients;
       },
       error: (error) => {
-        console.error('Error fetching clients', error);
+        this.error = error.message;
       },
     });
   }
@@ -114,7 +114,7 @@ export class LoanFormComponent implements OnInit {
         this.loantypes = response['loan types'];
       },
       error: (error) => {
-        console.error('Error fetching loan types', error);
+        this.error = error.message;
       },
     });
   }
