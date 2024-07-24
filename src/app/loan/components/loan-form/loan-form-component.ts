@@ -57,7 +57,9 @@ export class LoanFormComponent implements OnInit {
     parts: this.fb.control(1, {
       validators: [Validators.min(1), Validators.max(20)],
     }),
-    dateRepaid: this.fb.control(new Date()),
+    dateRepaid: this.fb.control(new Date(), {
+      validators: [Validators.required],
+    }),
   });
 
   clients: IClient[] = [];
@@ -138,9 +140,7 @@ export class LoanFormComponent implements OnInit {
           client: formValue.client! as IClient,
           amount: formValue.amount!,
           parts: formValue.parts!,
-          dateRepaid: formValue.dateRepaid || undefined,
         };
-        delete loanData.dateRepaid;
         this.loanService.createLoan(loanData).subscribe({
           next: (data) => {
             this.router.navigate(['/loans', data.loan._id]);
