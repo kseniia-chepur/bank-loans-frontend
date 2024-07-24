@@ -1,24 +1,30 @@
-<div class="auth-links" *ngIf="!authService.currentUserSig()">
-  <a routerLink="/login">Login</a>
-  <a routerLink="/signup">Create account</a>
-</div>
-
-<section class="app-content" *ngIf="authService.currentUserSig()">
-  <nav>
-    <button class="menu-button" mat-raised-button [matMenuTriggerFor]="menu">Menu</button>
-    <mat-menu #menu="matMenu">
-      <ul class="content-links">
-        <li><a routerLink="/clients">Clients</a></li>
-        <li><a routerLink="/loantypes">Types of loans</a></li>
-        <li><a routerLink="/loans">Loans</a></li>
-      </ul>
-    </mat-menu>
-  </nav>
-
-  <div class="current-user">
-    <h3>Hello, {{ authService.currentUserSig()?.username }}</h3>
-    <span (click)="logout()">Logout</span>
+<header class="header">
+  <div class="auth-links" *ngIf="!authService.currentUserSig()">
+    <a mat-flat-button routerLink="/login">Login</a>
+    <a mat-flat-button routerLink="/signup">Create account</a>
   </div>
-</section>
 
-<router-outlet></router-outlet>
+  <div class="app-content" *ngIf="authService.currentUserSig()">
+    <nav>
+      <button class="menu-button" mat-raised-button [matMenuTriggerFor]="menu">
+        Menu
+      </button>
+      <mat-menu #menu="matMenu">
+        <ul class="content-links">
+          <li><a routerLink="/clients">Clients</a></li>
+          <li><a routerLink="/loantypes">Types of loans</a></li>
+          <li><a routerLink="/loans">Loans</a></li>
+        </ul>
+      </mat-menu>
+    </nav>
+
+    <div class="current-user">
+      <h3>Hello, {{ authService.currentUserSig()?.username }}</h3>
+      <a mat-flat-button (click)="logout()">Logout</a>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <router-outlet></router-outlet>
+</main>

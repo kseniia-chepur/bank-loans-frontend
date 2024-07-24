@@ -1,19 +1,16 @@
 @use "@angular/material" as mat;
 @use "./../styles.scss" as styles;
 
+.header {
+  padding: 10px 20px;
+  box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+}
+
 .auth-links {
   display: flex;
   gap: 15px;
   justify-content: flex-end;
   font-weight: 500;
-
-  & a {
-    transition: all 0.3s ease;
-
-    &:hover {
-      color: mat.get-theme-color(styles.$theme, primary, 40);
-    }
-  }
 }
 
 .app-content {
@@ -30,7 +27,7 @@
   list-style: none;
   font-size: 1rem;
 
-  & li a{
+  & li a {
     padding: 10px;
 
     &:hover {
@@ -51,14 +48,8 @@
     margin-bottom: 0;
     font-size: inherit;
   }
+}
 
-  & span {
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-
-    &:hover {
-      color: mat.get-theme-color(styles.$theme, primary, 40);
-    }
-  }
+.main {
+  padding: 20px;
 }

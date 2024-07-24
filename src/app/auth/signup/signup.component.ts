@@ -37,6 +37,7 @@ export class SignupComponent {
   private router = inject(Router);
 
   error: string | null = null;
+  roles = Roles;
 
   form = this.fb.nonNullable.group({
     email: this.fb.control('', {
@@ -48,7 +49,7 @@ export class SignupComponent {
     password: this.fb.control('', {
       validators: [Validators.required, Validators.pattern(Regex.PASSWORD)],
     }),
-    role: this.fb.control(Roles.SPECIALIST),
+    role: this.fb.control(''),
   });
 
   onSubmit(): void {

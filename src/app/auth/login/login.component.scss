@@ -1,3 +1,6 @@
+@use "@angular/material" as mat;
+@use "./../../../styles.scss" as styles;
+
 :host {
   display: flex;
   flex-direction: column;
@@ -15,6 +18,11 @@ input::placeholder {
   font-size: 0.8rem;
 }
 
+button {
+  padding: 10px;
+  min-width: 100px;
+}
+
 .error-msg {
   font-size: 0.8rem;
   color: var(--mdc-filled-text-field-error-label-text-color);
@@ -22,4 +30,11 @@ input::placeholder {
   line-height: 1;
   text-align: center;
   margin-bottom: 5px;
+}
+
+.res-msg {
+  color: mat.get-theme-color(styles.$theme, primary, 50);
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1.7rem;
 }

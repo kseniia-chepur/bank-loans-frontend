@@ -23,7 +23,9 @@ export class AuthService {
         user
       )
       .pipe(
-        catchError(() => throwError(() => new Error(ErrorMsg.FAILED_TO_CREATE)))
+        catchError(() => {
+          throw new Error(ErrorMsg.FAILED_TO_CREATE);
+        })
       );
   }
 
@@ -36,7 +38,9 @@ export class AuthService {
         user
       )
       .pipe(
-        catchError(() => throwError(() => new Error(ErrorMsg.FAILED_TO_LOGIN)))
+        catchError(() => {
+          throw new Error(ErrorMsg.FAILED_TO_LOGIN);
+        })
       );
   }
 
