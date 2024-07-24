@@ -1,27 +1,27 @@
 <header class="header">
+  <nav class="app-content" *ngIf="authService.currentUserSig()">
+    <button class="menu-button" mat-raised-button [matMenuTriggerFor]="menu">
+      Menu
+    </button>
+    <mat-menu #menu="matMenu">
+      <ul class="content-links">
+        <li><a routerLink="/clients">Clients</a></li>
+        <li><a routerLink="/loantypes">Types of loans</a></li>
+        <li><a routerLink="/loans">Loans</a></li>
+      </ul>
+    </mat-menu>
+  </nav>
+
+  <h1 class="app-title">Loan Management System</h1>
+
   <div class="auth-links" *ngIf="!authService.currentUserSig()">
     <a mat-flat-button routerLink="/login">Login</a>
     <a mat-flat-button routerLink="/signup">Create account</a>
   </div>
 
-  <div class="app-content" *ngIf="authService.currentUserSig()">
-    <nav>
-      <button class="menu-button" mat-raised-button [matMenuTriggerFor]="menu">
-        Menu
-      </button>
-      <mat-menu #menu="matMenu">
-        <ul class="content-links">
-          <li><a routerLink="/clients">Clients</a></li>
-          <li><a routerLink="/loantypes">Types of loans</a></li>
-          <li><a routerLink="/loans">Loans</a></li>
-        </ul>
-      </mat-menu>
-    </nav>
-
-    <div class="current-user">
-      <h3>Hello, {{ authService.currentUserSig()?.username }}</h3>
-      <a mat-flat-button (click)="logout()">Logout</a>
-    </div>
+  <div class="current-user" *ngIf="authService.currentUserSig()">
+    <h3>Hello, {{ authService.currentUserSig()?.username }}</h3>
+    <a mat-flat-button (click)="logout()">Logout</a>
   </div>
 </header>
 

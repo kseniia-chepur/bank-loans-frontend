@@ -2,21 +2,25 @@
 @use "./../styles.scss" as styles;
 
 .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 10px 20px;
   box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
 }
 
-.auth-links {
-  display: flex;
-  gap: 15px;
-  justify-content: flex-end;
+.app-title {
+  font-size: 1.5rem;
   font-weight: 500;
+  margin-bottom: 0;
+  line-height: 1;
 }
 
-.app-content {
+.auth-links {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+  font-weight: 500;
 }
 
 .content-links {
